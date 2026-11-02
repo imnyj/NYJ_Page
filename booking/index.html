@@ -30,6 +30,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .times{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
 label{display:block;font-size:.9rem;font-weight:600;margin-top:12px}
 input,textarea,select{display:block;width:100%;font:inherit;color:inherit;background:none;border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:4px}
+select{color:#000;background:#fff}
+select option{color:#000;background:#fff}
 .primary{display:block;width:100%;margin-top:16px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:13px;font-weight:600}
 .primary:disabled{opacity:.5;cursor:default}
 .err{color:var(--err);font-size:.92rem;margin:10px 0 0}
@@ -78,7 +80,6 @@ a{color:var(--accent);word-break:break-all}
       <form id="form">
         <label>학년<select name="grade" id="grade" required></select></label>
         <label>이메일<input name="email" type="email" maxlength="100" required autocomplete="email"></label>
-        <label>상담 내용 (선택)<textarea name="memo" rows="3" maxlength="500"></textarea></label>
         <p class="sub" id="notice" style="margin-top:12px"></p>
         <p class="err" id="formError" role="alert" hidden></p>
         <button class="primary" id="submit" type="submit">예약 확정</button>
@@ -283,7 +284,7 @@ $('form').onsubmit = function (ev) {
   $('submit').textContent = '예약하는 중입니다';
   call('apiBook', [{
     category: state.category, minutes: state.minutes, date: state.date, time: state.time,
-    name: name, grade: f.grade.value, email: f.email.value, memo: f.memo.value
+    name: name, grade: f.grade.value, email: f.email.value, memo: ''
   }], function (r) {
     $('booking').hidden = true;
     $('done').hidden = false;
