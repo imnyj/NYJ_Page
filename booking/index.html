@@ -121,9 +121,14 @@ function remote(name, args, ok, bad) {
 }
 function pageParams(cb) {
   if (inAppsScript()) { google.script.url.getLocation(function (loc) { cb(loc.parameter || {}); }); return; }
+  // 관리 키와 취소 토큰은 서버 기록에 남지 않는 # 뒤에서만 읽고, 읽은 뒤 주소와 방문 기록에서 지운다.
   var p = {};
-  // 관리 키는 서버 기록에 남지 않도록 주소의 # 뒤에 둔다.
-  new URLSearchParams(location.search.slice(1) + '&' + location.hash.slice(1)).forEach(function (v, k) { p[k] = v; });
+  new URLSearchParams(location.hash.slice(1)).forEach(function (v, k) { p[k] = v; });
+  var q = new URLSearchParams(location.search.slice(1));
+  if (!p.cancel && q.get('cancel')) p.cancel = q.get('cancel');
+  if (location.hash) {
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { location.hash = ''; }
+  }
   setTimeout(function () { cb(p); }, 0);
 }
 function call(name, args, ok, bad) { remote(name, args, ok, bad); }
