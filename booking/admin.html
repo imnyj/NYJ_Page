@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--ink:#22252a;--sub:#646a73;--line:#dfdeda;--accent:#1f5f8b;--accent-ink:#fff;--soft:#e4eff6;--warn:#f6e3c5;--off:#ececec;--err:#b3261e;--ok:#1e7a46}
+@media (prefers-color-scheme:dark){:root{--bg:#17191c;--card:#212428;--ink:#eceef1;--sub:#a3a9b2;--line:#363a40;--accent:#7dbbe3;--accent-ink:#10222e;--soft:#26343e;--warn:#4a3b22;--off:#2c2f33;--err:#ff8a80;--ok:#7fd6a4}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 90px}
+h1{font-size:1.3rem;margin:0 0 12px}
+h2{font-size:1rem;margin:0 0 10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+button{font:inherit;color:inherit;cursor:pointer}
+.tab{background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;min-height:42px}
+.tab[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:12px}
+.sub{color:var(--sub);font-size:.9rem;margin:0 0 10px}
+.row{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:9px 0;border-top:1px solid var(--line);align-items:start}
+.row:first-of-type{border-top:0}
+.range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+input,textarea{font:inherit;color:inherit;background:none;border:1px solid var(--line);border-radius:6px;padding:7px}
+input[type=time]{width:136px}
+.mini{background:none;border:1px solid var(--line);border-radius:6px;min-width:38px;min-height:38px;padding:4px 10px}
+.head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.dow{color:var(--sub);font-size:.8rem}
+.day{min-height:62px;min-width:0;border:1px solid var(--line);border-radius:8px;background:none;padding:4px 2px;font-size:.85rem;display:flex;flex-direction:column;align-items:center;gap:2px}
+.day small{font-size:.68rem;color:var(--sub);line-height:1.2;max-width:100%;overflow:hidden}
+.day.custom{background:var(--warn)}.day.closed{background:var(--off)}.day.off{background:var(--off);opacity:.6}
+.day[aria-pressed=true]{outline:2px solid var(--accent)}
+.day:disabled{opacity:.35;cursor:default}
+label.field{display:block;font-weight:600;font-size:.9rem;margin-top:12px}
+label.field input,label.field textarea{display:block;width:100%;margin-top:4px;font-weight:400}
+.choice{display:block;padding:5px 0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center}
+.primary{background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:10px 26px;font-weight:600}
+.primary:disabled{opacity:.5}
+.card{border-top:1px solid var(--line);padding:10px 0}
+.card:first-child{border-top:0}
+.card p{margin:2px 0}
+.ok{color:var(--ok)}.bad{color:var(--err)}
+#status{font-size:.9rem}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <h1>상담 예약 관리</h1>
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <div data-tab="weekly" hidden>
+    <section>
+      <h2>상담 가능 기간</h2>
+      <p class="sub">학기 시작일과 종료일을 입력합니다. 이 기간 밖의 날짜는 예약을 받지 않고, 날짜별 조정에서 시간을 지정한 날만 예외로 열립니다. 둘 다 비워 두면 기간 제한이 없습니다. 기간 안의 날짜도 설정 탭의 예약 가능 기간(오늘부터 며칠) 안에 들어와야 학생에게 보입니다.</p>
+      <div class="range">
+        <input id="periodStart" type="date" aria-label="시작일"><span>~</span><input id="periodEnd" type="date" aria-label="종료일">
+      </div>
+    </section>
+    <section>
+      <h2>요일별 기본 시간</h2>
+      <p class="sub">시간을 비워 둔 요일에는 상담을 받지 않습니다. 캘린더에서 바쁨으로 표시된 일정의 시간은 자동으로 빠지고, 한가함으로 표시된 일정(기본 설정의 종일 일정 포함)은 막지 않습니다.</p>
+      <div id="weekly"></div>
+    </section>
+  </div>
+
+  <div data-tab="dates" hidden>
+    <section>
+      <h2>날짜별 조정</h2>
+      <p class="sub">날짜를 누르면 그날만 기본 시간과 다르게 정할 수 있습니다. 공휴일이나 상담 가능 기간 밖의 날도 시간을 지정하면 상담을 받습니다. 먼 날짜는 설정 탭의 예약 가능 기간 안에 들어온 뒤부터 학생에게 보입니다. 달력에 공휴일과 캘린더 일정은 표시되지 않습니다.</p>
+      <div class="head">
+        <button class="mini" id="prev" type="button" aria-label="이전 달">‹</button>
+        <strong id="month"></strong>
+        <button class="mini" id="next" type="button" aria-label="다음 달">›</button>
+      </div>
+      <div class="grid" id="days"></div>
+    </section>
+    <section id="dayPanel" hidden>
+      <h2 id="dayTitle"></h2>
+      <label class="choice"><input type="radio" name="mode" value="default"> 기본 시간 따르기</label>
+      <label class="choice"><input type="radio" name="mode" value="closed"> 이날 상담 받지 않기</label>
+      <label class="choice"><input type="radio" name="mode" value="custom"> 시간 직접 지정</label>
+      <div id="dayRanges"></div>
+    </section>
+  </div>
+
+  <div data-tab="bookings" hidden>
+    <section>
+      <h2>다가오는 예약</h2>
+      <div id="bookings"></div>
+    </section>
+  </div>
+
+  <div data-tab="settings" hidden>
+    <section>
+      <h2>예약 설정</h2>
+      <label class="field">페이지 제목<input id="title" maxlength="60"></label>
+      <label class="field">안내 문구<textarea id="intro" rows="2" maxlength="300"></textarea></label>
+      <label class="field">상담 장소<input id="location" maxlength="100"></label>
+      <label class="field">개인정보 안내 문구<textarea id="privacyNotice" rows="2" maxlength="300"></textarea></label>
+      <label class="field">알림 받을 이메일<input id="notifyEmail" type="email"></label>
+      <label class="field">학생용 배포 주소 (/exec로 끝남)<input id="webAppUrl"></label>
+      <label class="field">학생용 페이지 주소 (메일의 취소 링크에 사용, 비우면 배포 주소)<input id="studentPageUrl"></label>
+      <label class="field">허용 이메일 도메인 (한 줄에 하나, 비우면 모두 허용)<textarea id="allowedEmailDomains" rows="2"></textarea></label>
+      <label class="field">상담 분류 (한 줄에 하나)<textarea id="categories" rows="4"></textarea></label>
+      <label class="field">상담 길이, 분 단위 (쉼표로 구분)<input id="durations"></label>
+      <label class="field">최소 예약 시한 (시간 전까지)<input id="minNoticeHours" type="number" min="0" max="168"></label>
+      <label class="field">예약 가능 기간 (오늘부터 며칠)<input id="horizonDays" type="number" min="1" max="60"></label>
+      <label class="field">일정 앞뒤 여유 (분)<input id="bufferMinutes" type="number" min="0" max="60"></label>
+      <label class="field">이메일 1개당 동시 예약 수<input id="maxActivePerEmail" type="number" min="1" max="10"></label>
+      <label class="field">이메일 1개당 24시간 신청 수 (취소 포함)<input id="maxPerEmailDay" type="number" min="1" max="20"></label>
+      <label class="field">전체 24시간 신청 수 (취소 포함)<input id="maxPerDay" type="number" min="1" max="40"></label>
+      <label class="choice"><input type="checkbox" id="blockHolidays"> 공휴일에는 상담 받지 않기</label>
+      <label class="field">확인할 캘린더 ID (한 줄에 하나)<textarea id="calendars" rows="4"></textarea></label>
+    </section>
+    <section>
+      <h2>캘린더 연결 점검</h2>
+      <p class="sub">저장된 설정을 기준으로 읽기 권한을 확인합니다. 하나라도 실패하면 학생 화면에 빈 시간이 표시되지 않습니다.</p>
+      <button class="mini" id="check" type="button">지금 점검</button>
+      <div id="checkResult"></div>
+    </section>
+  </div>
+</main>
+<div class="bar">
+  <span id="status" role="status"></span>
+  <button class="primary" id="save" type="button" disabled>변경 내용 저장</button>
+</div>
+<script>
+var KEY = '', cfg = null, today = '', view = { y: 0, m: 0 }, picked = null, bookings = [];
+var DAY_ORDER = [1, 2, 3, 4, 5, 6, 0], DAY_NAMES = '일월화수목금토';
+var TABS = [['weekly', '기본 시간'], ['dates', '날짜별 조정'], ['bookings', '예약 목록'], ['settings', '설정']];
+var $ = function (id) { return document.getElementById(id); };
+
+// Apps Script 화면 안에서는 google.script.run을 쓰고, 개인 페이지에서는 같은 함수를 HTTP로 부른다.
+// 개인 페이지 쪽은 구글 로그인 정보를 보내지 않으므로 여러 계정으로 로그인한 브라우저에서도 열린다.
+var API_URL = 'https://script.google.com/macros/s/AKfycbwUbCOWCuKtOwQiNau8WHgI2ro647TskMdFibRl2jigJF8CCLOR-zOzd8F0Ae9pwPc/exec';
+function inAppsScript() { return !!(window.google && google.script && google.script.run); }
+function remote(name, args, ok, bad) {
+  if (inAppsScript()) {
+    var r = google.script.run.withSuccessHandler(ok).withFailureHandler(bad);
+    r[name].apply(r, args);
+    return;
+  }
+  fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: name, args: args }) })
+    .then(function (res) { return res.json(); })
+    .then(function (d) { if (d.ok) ok(d.result); else bad(new Error(d.error)); },
+      function () { bad(new Error('예약 서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.')); });
+}
+function pageParams(cb) {
+  if (inAppsScript()) { google.script.url.getLocation(function (loc) { cb(loc.parameter || {}); }); return; }
+  var p = {};
+  // 관리 키는 서버 기록에 남지 않도록 주소의 # 뒤에 둔다.
+  new URLSearchParams(location.search.slice(1) + '&' + location.hash.slice(1)).forEach(function (v, k) { p[k] = v; });
+  setTimeout(function () { cb(p); }, 0);
+}
+function call(name, args, ok, bad) {
+  remote(name, [KEY].concat(args), ok, function (e) {
+    status(String(e && e.message || e).replace(/^Error:\s*/, ''), true);
+    $('save').disabled = !cfg;
+    if (bad) bad();
+  });
+}
+function status(text, bad) {
+  $('status').textContent = text;
+  $('status').className = bad ? 'bad' : '';
+}
+function make(tag, cls, text) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function dirty() { status('저장하지 않은 변경 내용이 있습니다.'); }
+
+function selectTab(name) {
+  document.querySelectorAll('[data-tab]').forEach(function (d) { d.hidden = d.getAttribute('data-tab') !== name; });
+  $('tabs').querySelectorAll('.tab').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.name === name)); });
+}
+
+/** ranges 배열을 직접 고치는 시간 편집기를 그린다. */
+function rangeEditor(box, ranges) {
+  box.textContent = '';
+  ranges.forEach(function (r, i) {
+    var line = make('div', 'range');
+    [0, 1].forEach(function (j) {
+      var input = make('input');
+      input.type = 'time';
+      input.step = 300;
+      input.value = r[j];
+      input.setAttribute('aria-label', j ? '종료 시각' : '시작 시각');
+      input.onchange = function () { r[j] = input.value; dirty(); if (!box.onrangechange) renderDates(); };
+      line.appendChild(input);
+      if (!j) line.appendChild(make('span', '', '~'));
+    });
+    var del = make('button', 'mini', '×');
+    del.type = 'button';
+    del.setAttribute('aria-label', '이 시간대 삭제');
+    del.onclick = function () { ranges.splice(i, 1); rangeEditor(box, ranges); dirty(); changed(box); };
+    line.appendChild(del);
+    box.appendChild(line);
+  });
+  var add = make('button', 'mini', '+ 시간대 추가');
+  add.type = 'button';
+  add.onclick = function () {
+    var last = ranges[ranges.length - 1];
+    if (last && last[1] >= '23:00') { status('23시 이후에는 시간대를 더 만들 수 없습니다.', true); return; }
+    ranges.push(last ? [last[1], nextHour(last[1])] : ['14:00', '17:00']);
+    rangeEditor(box, ranges);
+    dirty();
+    changed(box);
+  };
+  box.appendChild(add);
+}
+/** 요일의 시간대가 바뀌면 상담 없음 표시와 달력도 다시 그린다. */
+function changed(box) {
+  if (box.onrangechange) box.onrangechange();
+  else { renderWeekly(); renderDates(); }
+}
+function nextHour(t) { return String(Number(t.slice(0, 2)) + 1).padStart(2, '0') + t.slice(2); }
+
+function renderWeekly() {
+  var box = $('weekly');
+  box.textContent = '';
+  DAY_ORDER.forEach(function (d) {
+    var row = make('div', 'row');
+    row.appendChild(make('strong', '', DAY_NAMES[d]));
+    var ranges = make('div');
+    if (!cfg.weekly[d].length) ranges.appendChild(make('p', 'sub', '상담 없음'));
+    var editor = make('div');
+    ranges.appendChild(editor);
+    rangeEditor(editor, cfg.weekly[d]);
+    row.appendChild(ranges);
+    box.appendChild(row);
+  });
+}
+
+function pad(n) { return String(n).padStart(2, '0'); }
+function renderDates() {
+  var y = view.y, m = view.m;
+  $('month').textContent = y + '년 ' + (m + 1) + '월';
+  var box = $('days');
+  box.textContent = '';
+  '일월화수목금토'.split('').forEach(function (w) { box.appendChild(make('div', 'dow', w)); });
+  var blanks = new Date(Date.UTC(y, m, 1)).getUTCDay();
+  for (var i = 0; i < blanks; i++) box.appendChild(make('div'));
+  var last = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+  for (var d = 1; d <= last; d++) box.appendChild(dayCell(y + '-' + pad(m + 1) + '-' + pad(d), d));
+}
+/** 좁은 달력 칸에 맞도록 정각의 분을 생략한다. */
+function rangesText(ranges) {
+  return ranges.map(function (r) { return (r[0] + '~' + r[1]).replace(/:00/g, ''); }).join(' ');
+}
+function dayCell(key, d) {
+  var o = cfg.overrides[key];
+  var b = make('button', 'day');
+  b.type = 'button';
+  b.disabled = key < today;
+  b.setAttribute('aria-pressed', String(key === picked));
+  b.appendChild(make('span', '', String(d)));
+  if (o && !o.length) { b.classList.add('closed'); b.appendChild(make('small', '', '상담 없음')); }
+  if (!o) {
+    var w = cfg.weekly[new Date(key + 'T00:00:00Z').getUTCDay()];
+    var outside = cfg.periodStart && cfg.periodEnd && (key < cfg.periodStart || key > cfg.periodEnd);
+    if (outside || !w.length) b.classList.add('off');
+    b.appendChild(make('small', '', outside ? '기간 밖' : w.length ? rangesText(w) : '상담 없음'));
+  }
+  if (o && o.length) {
+    b.classList.add('custom');
+    b.appendChild(make('small', '', rangesText(o)));
+  }
+  b.onclick = function () { picked = key; renderDates(); renderDay(); };
+  return b;
+}
+function renderDay() {
+  var o = cfg.overrides[picked];
+  var mode = !o ? 'default' : o.length ? 'custom' : 'closed';
+  var w = DAY_NAMES[new Date(picked + 'T00:00:00Z').getUTCDay()];
+  $('dayPanel').hidden = false;
+  $('dayTitle').textContent = picked + ' (' + w + ')';
+  document.querySelectorAll('input[name=mode]').forEach(function (r) { r.checked = r.value === mode; });
+  var box = $('dayRanges');
+  box.hidden = mode !== 'custom';
+  if (mode === 'custom') {
+    box.onrangechange = function () { renderDates(); };
+    rangeEditor(box, o);
+  }
+}
+document.querySelectorAll('input[name=mode]').forEach(function (r) {
+  r.onchange = function () {
+    if (r.value === 'default') delete cfg.overrides[picked];
+    if (r.value === 'closed') cfg.overrides[picked] = [];
+    if (r.value === 'custom') {
+      var base = cfg.weekly[new Date(picked + 'T00:00:00Z').getUTCDay()];
+      cfg.overrides[picked] = base.length ? JSON.parse(JSON.stringify(base)) : [['14:00', '17:00']];
+    }
+    dirty();
+    renderDates();
+    renderDay();
+  };
+});
+$('prev').onclick = function () { if (--view.m < 0) { view.m = 11; view.y--; } renderDates(); };
+$('next').onclick = function () { if (++view.m > 11) { view.m = 0; view.y++; } renderDates(); };
+
+function renderBookings() {
+  var box = $('bookings');
+  box.textContent = '';
+  if (!bookings.length) box.appendChild(make('p', 'sub', '다가오는 예약이 없습니다.'));
+  bookings.forEach(function (b) {
+    var c = make('div', 'card');
+    c.appendChild(make('strong', '', b.date + ' ' + b.time + ' (' + b.minutes + '분)'));
+    c.appendChild(make('p', '', b.name + ', ' + b.grade + ', ' + b.category));
+    if (bookings.some(function (x) { return x !== b && x.name === b.name && x.grade === b.grade && x.email !== b.email; })) {
+      c.appendChild(make('p', 'bad', '같은 이름과 학년의 다른 이메일 예약이 있습니다.'));
+    }
+    c.appendChild(make('p', 'sub', b.email));
+    if (b.memo) c.appendChild(make('p', '', b.memo));
+    var del = make('button', 'mini', '예약 취소');
+    del.type = 'button';
+    del.onclick = function () {
+      if (del.dataset.armed !== '1') {
+        del.dataset.armed = '1';
+        del.textContent = '한 번 더 누르면 학생에게 메일이 갑니다';
+        return;
+      }
+      del.disabled = true;
+      call('adminCancel', [b.id], function (r) {
+        var problems = [];
+        if (!r.mailSent) problems.push('학생에게 메일을 보내지 못했습니다. 직접 연락해 주세요: ' + r.email);
+        if (!r.eventDeleted) problems.push('캘린더 일정을 지우지 못했습니다. 직접 지워 주세요.');
+        status(problems.join(' ') || '예약을 취소했습니다.', problems.length > 0);
+        reload();
+      }, function () { del.disabled = false; });
+    };
+    c.appendChild(del);
+    box.appendChild(c);
+  });
+}
+
+var TEXT = ['title', 'intro', 'location', 'privacyNotice', 'notifyEmail', 'webAppUrl', 'studentPageUrl', 'periodStart', 'periodEnd'];
+var NUM = ['minNoticeHours', 'horizonDays', 'bufferMinutes', 'maxActivePerEmail', 'maxPerEmailDay', 'maxPerDay'];
+function renderSettings() {
+  TEXT.concat(NUM).forEach(function (k) { $(k).value = cfg[k]; });
+  $('categories').value = cfg.categories.join('\n');
+  $('durations').value = cfg.durations.join(', ');
+  $('calendars').value = cfg.calendars.join('\n');
+  $('allowedEmailDomains').value = cfg.allowedEmailDomains.join('\n');
+  $('blockHolidays').checked = cfg.blockHolidays;
+}
+function readSettings() {
+  TEXT.forEach(function (k) { cfg[k] = $(k).value; });
+  NUM.forEach(function (k) { cfg[k] = $(k).value; });
+  cfg.categories = $('categories').value.split('\n');
+  cfg.durations = $('durations').value.split(',').filter(function (s) { return s.trim(); });
+  cfg.calendars = $('calendars').value.split('\n');
+  cfg.allowedEmailDomains = $('allowedEmailDomains').value.split('\n');
+  cfg.blockHolidays = $('blockHolidays').checked;
+}
+['periodStart', 'periodEnd'].forEach(function (k) {
+  $(k).onchange = function () { cfg[k] = $(k).value; dirty(); renderDates(); };
+});
+document.querySelector('[data-tab=settings]').addEventListener('input', function (e) {
+  if (e.target.id) dirty();
+});
+
+$('save').onclick = function () {
+  readSettings();
+  $('save').disabled = true;
+  status('저장하는 중입니다.');
+  call('adminSave', [cfg], function (saved) {
+    cfg = saved;
+    picked = null;
+    $('dayPanel').hidden = true;
+    renderAll();
+    $('save').disabled = false;
+    status('저장했습니다.');
+  });
+};
+$('check').onclick = function () {
+  var box = $('checkResult');
+  box.textContent = '확인하는 중입니다.';
+  call('adminCheck', [], function (list) {
+    box.textContent = '';
+    list.forEach(function (c) {
+      box.appendChild(make('p', c.ok ? 'ok' : 'bad', (c.ok ? '정상: ' : '읽기 실패: ') + c.id));
+    });
+  });
+};
+
+function renderAll() {
+  renderWeekly();
+  renderDates();
+  renderSettings();
+  renderBookings();
+}
+function reload() {
+  call('adminLoad', [], function (d) {
+    var first = !cfg;
+    cfg = cfg && !first ? cfg : d.config;
+    bookings = d.bookings;
+    today = d.today;
+    if (first) {
+      var p = today.split('-').map(Number);
+      view = { y: p[0], m: p[1] - 1 };
+      renderAll();
+      $('save').disabled = false;
+    } else {
+      renderBookings();
+    }
+  });
+}
+
+TABS.forEach(function (t) {
+  var b = make('button', 'tab', t[1]);
+  b.type = 'button';
+  b.setAttribute('role', 'tab');
+  b.dataset.name = t[0];
+  b.onclick = function () { selectTab(t[0]); };
+  $('tabs').appendChild(b);
+});
+selectTab('weekly');
+pageParams(function (params) {
+  KEY = params.admin || '';
+  reload();
+});
+</script>
+</body>
+</html>
