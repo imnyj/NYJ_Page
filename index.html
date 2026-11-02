@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>남영주 | Youngju Nam</title>
+<style>
+:root{--bg:#0a0e1a;--bg2:#0f1525;--bg3:#151d35;--accent:#4f9cf9;--accent2:#7eb8ff;--gold:#f0c060;--text:#e8edf5;--muted:#7a8aaa;--card:#131a2e;--border:#1e2d50;--red:#f97b7b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI','Apple SD Gothic Neo',sans-serif;line-height:1.7;min-height:100vh;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:.9rem 2.5rem;background:rgba(10,14,26,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-logo{font-size:1rem;font-weight:800;color:var(--accent);letter-spacing:2px;cursor:pointer;}
+.nav-links{display:flex;gap:.3rem;align-items:center;}
+.nav-btn{background:none;border:none;color:var(--muted);font-size:.85rem;padding:.45rem 1rem;border-radius:6px;cursor:pointer;transition:all .2s;}
+.nav-btn:hover{color:var(--text);background:rgba(255,255,255,.05);}
+.nav-btn.active{color:var(--accent);background:rgba(79,156,249,.1);}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:62px;animation:fadeIn .35s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* SHARED */
+.container{max-width:1050px;margin:0 auto;padding:3.5rem 2rem;}
+.sec-label{color:var(--accent);font-size:.75rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:.6rem;}
+.sec-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;background:linear-gradient(135deg,#fff,var(--muted));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.4rem;}
+.sec-divider{width:44px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--accent),transparent);margin-bottom:2.5rem;}
+.btn{display:inline-block;padding:.65rem 1.5rem;border-radius:8px;text-decoration:none;font-size:.88rem;font-weight:600;transition:all .25s;cursor:pointer;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 20px rgba(79,156,249,.35);}
+.btn-outline{border:1px solid var(--border);color:var(--muted);background:transparent;}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+/* HOME */
+#home{background:radial-gradient(ellipse at 60% 40%,#0d2a5a 0%,var(--bg) 68%);}
+.home-inner{max-width:1050px;margin:0 auto;padding:0 2rem;min-height:calc(100vh - 62px);display:flex;align-items:center;gap:4rem;}
+.home-text{flex:1;}
+.hero-tag{display:inline-block;background:rgba(79,156,249,.1);color:var(--accent);border:1px solid rgba(79,156,249,.3);border-radius:20px;padding:.28rem .95rem;font-size:.75rem;letter-spacing:1px;margin-bottom:.8rem;}
+.hero-name{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;line-height:1.1;background:linear-gradient(135deg,#fff 40%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem;}
+.hero-name-en{font-size:1.1rem;color:var(--muted);margin-bottom:1rem;}
+.hero-pos{font-size:1rem;color:var(--text);margin-bottom:1.3rem;}.hero-pos span{color:var(--accent);font-weight:700;}
+.hero-btns{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:1.8rem;}
+.home-card{flex:0 0 320px;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.hc-label{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;}
+.rtag{display:inline-block;background:rgba(79,156,249,.08);border:1px solid rgba(79,156,249,.18);border-radius:6px;padding:.28rem .7rem;font-size:.75rem;color:var(--accent2);margin:.22rem;}
+.lab-box{margin-top:1.4rem;padding:.9rem 1.1rem;background:linear-gradient(135deg,rgba(79,156,249,.1),rgba(126,184,255,.04));border:1px solid rgba(79,156,249,.22);border-radius:10px;}
+.lab-name{color:var(--accent);font-weight:700;font-size:.92rem;}
+.lab-sub{color:var(--muted);font-size:.77rem;margin-top:.15rem;}
+
+/* ABOUT */
+#about{background:var(--bg2);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.about-text p{color:var(--muted);font-size:.95rem;margin-bottom:.9rem;}
+.about-text .hl{color:var(--text);font-size:1.02rem;line-height:1.85;}
+.info-list{display:grid;gap:.9rem;}
+.icard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:all .2s;position:relative;}
+.icard:hover{border-color:var(--accent);}
+.icard-icon{font-size:1.3rem;flex-shrink:0;}
+.icard-label{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;}
+.icard-val{color:var(--text);font-size:.88rem;font-weight:500;}
+.icard-val a{color:var(--accent);text-decoration:none;}
+
+/* CAREER */
+#career{background:var(--bg);}
+.timeline{position:relative;padding-left:2.2rem;max-width:700px;}
+.timeline::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--accent),transparent);}
+.tl-item{position:relative;margin-bottom:2.2rem;}
+.tl-dot{position:absolute;left:-2.2rem;top:5px;width:13px;height:13px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 10px rgba(79,156,249,.5);}
+.tl-dot.g{background:var(--gold);box-shadow:0 0 10px rgba(240,192,96,.5);}
+.tl-period{display:inline-block;background:rgba(79,156,249,.1);color:var(--accent);border:1px solid rgba(79,156,249,.22);border-radius:4px;padding:.12rem .65rem;font-size:.75rem;font-weight:700;margin-right:.5rem;}
+.tl-period.gp{background:rgba(240,192,96,.1);color:var(--gold);border-color:rgba(240,192,96,.22);}
+.tl-title{font-size:.98rem;font-weight:700;color:var(--text);}
+.tl-sub{font-size:.85rem;color:var(--muted);}
+
+/* RESEARCH */
+#research{background:var(--bg2);}
+.rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.3rem;}
+.rcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;transition:all .3s;position:relative;overflow:hidden;}
+.rcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.rcard:hover{border-color:rgba(79,156,249,.4);transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.3);}
+.rcard:hover::before{transform:scaleX(1);}
+.rc-ico{font-size:1.7rem;margin-bottom:.7rem;}
+.rc-title{font-size:.97rem;font-weight:700;color:var(--text);margin-bottom:.7rem;}
+.rc-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.rc-tag{background:rgba(79,156,249,.07);color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:.18rem .58rem;font-size:.73rem;}
+
+/* PUBLICATIONS */
+#pubs{background:var(--bg);}
+.pub-controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem;}
+.filt-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:.38rem .9rem;font-size:.8rem;cursor:pointer;transition:all .2s;}
+.filt-btn:hover,.filt-btn.on{background:rgba(79,156,249,.12);border-color:var(--accent);color:var(--accent);}
+.year-group{margin-bottom:2rem;}
+.year-heading{font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:1px solid var(--border);}
+.paper-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.3rem;margin-bottom:.7rem;transition:border-color .2s;position:relative;}
+.paper-item:hover{border-color:rgba(79,156,249,.35);}
+.paper-item.first-author::after{content:'1저자';position:absolute;top:.7rem;right:.9rem;background:rgba(79,156,249,.15);color:var(--accent);border:1px solid rgba(79,156,249,.3);border-radius:4px;padding:.15rem .5rem;font-size:.68rem;font-weight:700;}
+.paper-item.corr-author::after{content:'교신저자';position:absolute;top:.7rem;right:.9rem;background:rgba(240,192,96,.12);color:var(--gold);border:1px solid rgba(240,192,96,.28);border-radius:4px;padding:.15rem .5rem;font-size:.68rem;font-weight:700;}
+.paper-item.fa-ca::after{content:'1저자·교신';position:absolute;top:.7rem;right:.9rem;background:rgba(79,156,249,.12);color:var(--accent2);border:1px solid rgba(79,156,249,.3);border-radius:4px;padding:.15rem .5rem;font-size:.68rem;font-weight:700;}
+.paper-title{font-size:.88rem;font-weight:600;color:var(--text);margin-bottom:.35rem;padding-right:5rem;}
+.paper-authors{font-size:.8rem;color:var(--muted);margin-bottom:.25rem;}
+.paper-authors .me{color:var(--accent2);font-weight:600;}
+.paper-venue{font-size:.78rem;color:var(--accent);font-weight:500;}
+.badge{display:inline-block;border-radius:4px;padding:.1rem .5rem;font-size:.7rem;font-weight:700;margin-left:.4rem;}
+.badge-j{background:rgba(79,156,249,.12);color:var(--accent);}
+.badge-c{background:rgba(240,192,96,.12);color:var(--gold);}
+.pub-stats{display:flex;gap:1.2rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.5rem;text-align:center;}
+.stat-num{font-size:1.6rem;font-weight:900;color:var(--accent);}
+.stat-lbl{font-size:.75rem;color:var(--muted);}
+
+/* CONTACT */
+#contact{background:var(--bg2);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.contact-items{display:grid;gap:.9rem;}
+.ci{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.4rem;transition:all .2s;position:relative;}
+.ci:hover{border-color:var(--accent);}
+.ci-ico{font-size:1.25rem;flex-shrink:0;}
+.ci-lbl{color:var(--muted);font-size:.72rem;text-transform:uppercase;}
+.ci-val{color:var(--text);font-size:.88rem;}
+.ci-val a{color:var(--accent);text-decoration:none;}
+.calendly-card{background:linear-gradient(135deg,rgba(79,156,249,.12),rgba(126,184,255,.04));border:1px solid rgba(79,156,249,.28);border-radius:18px;padding:2.5rem;text-align:center;}
+.calendly-card h3{font-size:1.2rem;margin-bottom:.5rem;}
+.calendly-card p{color:var(--muted);font-size:.88rem;margin-bottom:1.8rem;line-height:1.7;}
+.btn-cal{display:inline-block;background:linear-gradient(135deg,var(--accent),#3a7fd5);color:#fff;padding:.85rem 1.9rem;border-radius:10px;text-decoration:none;font-weight:700;font-size:.92rem;transition:all .25s;}
+.btn-cal:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(79,156,249,.45);}
+
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;color:var(--muted);font-size:.82rem;}
+footer p{text-align:center;margin-bottom:.8rem;}
+footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+footer a{color:var(--accent);text-decoration:none;transition:all .2s;}
+footer a:hover{color:var(--accent2);}
+
+@media(max-width:720px){
+.home-inner{flex-direction:column;padding-top:2rem;}.home-card{display:none;}
+.about-grid,.contact-grid{grid-template-columns:1fr;}
+.nav-btn{font-size:.75rem;padding:.4rem .65rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="goPage('home')">NYJ</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="goPage('home')">Home</button>
+    <button class="nav-btn" onclick="goPage('about')">소개</button>
+    <button class="nav-btn" onclick="goPage('career')">경력</button>
+    <button class="nav-btn" onclick="goPage('research')">연구</button>
+    <button class="nav-btn" onclick="goPage('pubs')">논문</button>
+    <button class="nav-btn" onclick="goPage('contact')">연락처</button>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="home">
+  <div class="home-inner">
+    <div class="home-text">
+      <div class="hero-tag">Assistant Professor.</div>
+      <div class="hero-name" id="h-name">남영주</div>
+      <div class="hero-name-en" id="h-name-en">Youngju Nam</div>
+      <div class="hero-pos" id="h-pos">조교수 · <span>군산대학교 소프트웨어학부</span></div>
+      <p style="color:var(--muted);font-size:.95rem;max-width:480px;margin-top:.3rem;" id="h-desc">차세대 차량 네트워크와 딥러닝 기반 최적화를 연구하며, MoNO Lab을 이끌고 있습니다.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="goPage('contact')">연락하기</button>
+        <button class="btn btn-outline" onclick="goPage('research')">연구 분야</button>
+        <button class="btn btn-outline" onclick="goPage('pubs')">논문 보기</button>
+      </div>
+    </div>
+    <div class="home-card">
+      <div class="hc-label">Research Keywords</div>
+      <div id="h-keywords"></div>
+      <div class="lab-box">
+        <div class="lab-name">📡 MoNO Lab.</div>
+        <div class="lab-sub">Mobile Network Optimization Laboratory</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="page" id="about">
+  <div class="container">
+    <div class="sec-label">About</div>
+    <h2 class="sec-title">소개</h2>
+    <div class="sec-divider"></div>
+    <div class="about-grid">
+      <div class="about-text" id="aboutBioEl"></div>
+      <div class="info-list" id="aboutInfoEl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CAREER ══ -->
+<div class="page" id="career">
+  <div class="container">
+    <div class="sec-label">Career &amp; Education</div>
+    <h2 class="sec-title">경력 및 학력</h2>
+    <div class="sec-divider"></div>
+    <div class="timeline" id="timelineEl"></div>
+  </div>
+</div>
+
+<!-- ══ RESEARCH ══ -->
+<div class="page" id="research">
+  <div class="container">
+    <div class="sec-label">Research Areas</div>
+    <h2 class="sec-title">연구 분야</h2>
+    <div class="sec-divider"></div>
+    <div class="rg" id="researchEl"></div>
+  </div>
+</div>
+
+<!-- ══ PUBS ══ -->
+<div class="page" id="pubs">
+  <div class="container">
+    <div class="sec-label">Publications</div>
+    <h2 class="sec-title">논문 목록</h2>
+    <div class="sec-divider"></div>
+    <div class="pub-stats">
+      <div class="stat-box"><div class="stat-num" id="cnt-total">0</div><div class="stat-lbl">Total</div></div>
+      <div class="stat-box"><div class="stat-num" id="cnt-j">0</div><div class="stat-lbl">Journal</div></div>
+      <div class="stat-box"><div class="stat-num" id="cnt-c">0</div><div class="stat-lbl">Conference</div></div>
+      <div class="stat-box"><div class="stat-num" id="cnt-fa">0</div><div class="stat-lbl">1저자</div></div>
+    </div>
+    <div class="pub-controls">
+      <button class="filt-btn on" onclick="filterPapers(this,'all')">전체</button>
+      <button class="filt-btn" onclick="filterPapers(this,'journal')">저널</button>
+      <button class="filt-btn" onclick="filterPapers(this,'conf')">학회</button>
+      <button class="filt-btn" onclick="filterPapers(this,'first')">1저자만</button>
+    </div>
+    <div id="pub-list"></div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="page" id="contact">
+  <div class="container">
+    <div class="sec-label">Contact</div>
+    <h2 class="sec-title">연락처</h2>
+    <div class="sec-divider"></div>
+    <div class="contact-grid">
+      <div>
+        <p style="color:var(--muted);font-size:.93rem;margin-bottom:1.8rem;line-height:1.8;">연구 협력, 학생 지도, 강연 등 다양한 문의를 환영합니다. 아래 연락처로 언제든 연락 주세요.</p>
+        <div class="contact-items" id="contactEl"></div>
+      </div>
+      <div class="calendly-card">
+        <div style="font-size:3rem;margin-bottom:1rem;">🗓️</div>
+        <h3>상담 신청</h3>
+        <p>연구 상담, 진로 상담, 연구실 지원 등 온라인 상담 신청을 받고 있습니다.</p>
+        <a href="https://calendly.com/imnyj1992" target="_blank" class="btn-cal">📅 상담 일정 예약하기</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 남영주 (Youngju Nam) · 군산대학교 소프트웨어학부 · MoNO Lab</p>
+  <div style="text-align:center;margin-top:.5rem;">
+    <a href="https://imnyj.notion.site/1c2bd8b6a62080a8b21be8349df931ad?v=1c2bd8b6a62080b5be8a000c8e8a1688&pvs=74" target="_blank" style="color:var(--accent);text-decoration:none;">📓 Lab Notion</a>
+  </div>
+</footer>
+
+<script>
+// ════════════════════════════════
+//  DEFAULT DATA
+// ════════════════════════════════
+const DEFAULT = {
+  home: { name:'남영주', nameEn:'Youngju Nam', pos:'조교수 · 군산대학교 소프트웨어학부', desc:'차세대 차량 네트워크와 딥러닝 기반 최적화를 연구하며, MoNO Lab을 이끌고 있습니다.', keywords:'Vehicular Network,IoV,CCN,Deep Learning,Network Optimization' },
+  about: { bio: ['차량 네트워크(Vehicular Network) 및 콘텐츠 중심 네트워킹(CCN) 분야를 전문으로 연구하는 군산대학교 소프트웨어학부 조교수입니다.','충북대학교 정보통신공학부에서 학사, 석사, 박사 학위를 취득했으며, 박사후연구원 경험을 거쳐 현재 MoNO Lab(Mobile Network Optimization Laboratory)을 운영 중입니다.','딥러닝을 활용한 네트워크 최적화, 차량 클라우드, 캐싱 및 프리패칭 알고리즘 등 최신 기술을 중심으로 연구하고 있습니다.','혁신적인 네트워크 솔루션을 통해 미래의 스마트 모빌리티 시대에 기여하고자 노력하고 있습니다.'] },
+  career: [
+    {id:1,period:'2024.10 ~ 현재',gold:false,title:'조교수',sub:'군산대학교 소프트웨어학부 · MoNO Lab 운영'},
+    {id:2,period:'2023.02 ~ 2024.09',gold:true,title:'박사후연구원 (Postdoc)',sub:'충북대학교 컴퓨터정보통신연구소 (RICIC)'},
+    {id:3,period:'2019 ~ 2023',gold:false,title:'박사 (Ph.D.) 취득',sub:'충북대학교 정보통신공학부'},
+    {id:4,period:'2017 ~ 2019',gold:false,title:'석사 (M.S.) 취득',sub:'충북대학교 정보통신공학부'},
+    {id:5,period:'~ 2017',gold:false,title:'학사 (B.S.) 취득',sub:'충북대학교 정보통신공학부'}
+  ],
+  research: [
+    {id:1,icon:'🚗',title:'차량 네트워크 & IoV',tags:'Vehicular Network,IoV,VANET,CC-IoV'},
+    {id:2,icon:'📦',title:'콘텐츠 중심 네트워크',tags:'CCN,CCVN,Content-Centric'},
+    {id:3,icon:'🗄️',title:'캐싱 & 프리패치',tags:'Precaching,Proactive Caching,Prefetch'},
+    {id:4,icon:'☁️',title:'차량 클라우드 & 클러스터링',tags:'Vehicular Cloud,Clustering,MEC'},
+    {id:5,icon:'🤖',title:'딥러닝 & 최적화',tags:'Deep RL,Deep Learning,Supervised Learning,Optimization'},
+    {id:6,icon:'🛠️',title:'시뮬레이션 환경',tags:'NS3,SUMO (libsumo),Python'}
+  ],
+  contact: [
+    {id:1,icon:'✉️',label:'이메일',value:'imnyj@kunsan.ac.kr',link:'mailto:imnyj@kunsan.ac.kr'},
+    {id:2,icon:'📱',label:'전화',value:'010-7935-7510',link:''},
+    {id:3,icon:'🏫',label:'소속',value:'군산대학교 소프트웨어학부',link:''},
+    {id:4,icon:'🔬',label:'연구실',value:'MoNO Lab (Mobile Network Optimization Lab)',link:''}
+  ],
+  
+  papers: [
+    {id:1,y:2026,type:'journal',fa:true,ca:false,title:'Precaching vehicle selection based on soft actor-critic in CIoV',authors:'Youngju Nam, Yongje Shin, Hyeonseok Choi, Euisin Lee',venue:'AIMS Mathematics'},
+    {id:2,y:2026,type:'journal',fa:false,ca:false,title:'PSO-Based Dynamic RSU Role Assignment Framework for Scalable and Reliable Content Delivery in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'IEEE Transaction on Vehicular Technology'},
+    {id:3,y:2026,type:'journal',fa:false,ca:false,title:'Dynamic Relay Assignment Scheme for Efficient V2V Content Precaching in Content-Centric Internet of Vehicles',authors:'Jongpil Youn, Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Access'},
+    {id:4,y:2025,type:'journal',fa:true,ca:false,title:'Content Storage Management and Precaching Scheme in Content-Centric-Network-Based Internet of Vehicles',authors:'Youngju Nam, Hyeonseok Choi, Euisin Lee',venue:'IEEE Access'},
+    {id:5,y:2024,type:'journal',fa:false,ca:true,title:'Resource Cluster-Based Resource Search and Allocation Scheme for Vehicular Clouds in Vehicular Ad Hoc Networks',authors:'Hyunseok Choi, Youngju Nam, Yoonhyeong Lee, Euisin Lee',venue:'IEEE Access'},
+    {id:6,y:2024,type:'journal',fa:false,ca:false,title:'Adaptive Mobility-Based IoT LoRa Clustering Communication Scheme',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Sensors'},
+    {id:7,y:2025,type:'journal',fa:false,ca:false,title:'Particle Swarm Optimization-Based Content Delivery Protocol for UAV VAENTs',authors:'Yongje Shin, Hyun-Seok Choi, Youngju Nam, Euisin Lee',venue:'IEEE Access'},
+    {id:8,y:2024,type:'journal',fa:false,ca:false,title:'Mobility-Based Multi-Hop Content Precaching Scheme in Content-Centric Vehicular Networks',authors:'Hyunseok Choi, Youngju Nam, Gayeong Kim, Euisin Lee',venue:'IEEE Access'},
+    {id:9,y:2023,type:'journal',fa:true,ca:false,title:'Traffic Optimized Content Precaching Scheme Based on Tolerable Delay Time in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Access'},
+    {id:10,y:2023,type:'journal',fa:false,ca:false,title:'Implicit Overhearing Node-Based Multi-Hop Communication Scheme in IoT LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Sensors'},
+    {id:11,y:2023,type:'journal',fa:true,ca:false,title:'Multiple Precaching Vehicle Selection Scheme Based on Set Ranking in Intermittently Connected Vehicular Networks',authors:'Youngju Nam, Jaejeong Bang, Yongje Shin, Euisin Lee',venue:'IEEE Access'},
+    {id:12,y:2023,type:'conf',fa:true,ca:false,title:'Delay Tolerable Precaching Scheme in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Dick Mugerwa, Euisin Lee',venue:'IEEE INFOCOM'},
+    {id:13,y:2023,type:'conf',fa:true,ca:false,title:'Set Ranking-Based Precaching Protocol in Vehicular Ad hoc Networks',authors:'Youngju Nam, Hyunseok Choi, Jaejeong Bang, Yongje Shin, Euisin Lee',venue:'ACM MobiSys'},
+    {id:14,y:2023,type:'conf',fa:false,ca:false,title:'Enhanced Hybrid Energy-Efficient Distributed Clustering Protocol for IoT-Based WSNs with Multiple Sinks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE ICC'},
+    {id:15,y:2023,type:'conf',fa:false,ca:false,title:'Multi-hop Precaching scheme with Relaying in Intermittently Connected Vehicular Networks',authors:'Gayeong Kim, Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Globecom'},
+    {id:16,y:2022,type:'journal',fa:false,ca:false,title:'Particle Swarm Optimization Video Streaming Service in Vehicular Ad-Hoc Networks',authors:'Yongje Shin, Hyun-Seok Choi, Youngju Nam, Hyunchong Lee, Euisin Lee',venue:'IEEE Access'},
+    {id:17,y:2022,type:'journal',fa:false,ca:false,title:'The partial cloud member replacement for reconstructing vehicular clouds in VANETs: Reactive and proactive schemes',authors:'Hyunseok Choi, Youngju Nam, Yongje Shin, Euisin Lee',venue:'IEEE Access'},
+    {id:18,y:2022,type:'journal',fa:false,ca:false,title:'SF-Partition-Based Clustering and Relaying Scheme for Resolving Near-Far Unfairness in IoT Multihop LoRa Networks',authors:'Dick Mugerwa, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'Sensors'},
+    {id:19,y:2022,type:'journal',fa:true,ca:false,title:'Cooperative Content Precaching Scheme Based on the Mobility Information of Vehicles in Intermittently Connected Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Access'},
+    {id:20,y:2022,type:'journal',fa:true,ca:false,title:'Expected Area-Based Real-Time Routing Protocol for Supporting Mobile Sinks in Wireless Sensor Networks',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Access'},
+    {id:21,y:2022,type:'journal',fa:true,ca:false,title:'RSU-Aided Optimal Member Replacement Scheme with Improved Mobility Prediction for Vehicular Clouds in VANETs',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Access'},
+    {id:22,y:2022,type:'journal',fa:false,ca:false,title:'Design and Evaluation of Schemes for Replacing Multiple Member Vehicles in Vehicular Clouds',authors:'Hyunseok Choi, Youngju Nam, Yongje Shin, Euisin Lee',venue:'IEEE Access'},
+    {id:23,y:2022,type:'conf',fa:false,ca:false,title:'Implicit Multi-hop Communication Scheme based on Overhearing in IoT LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunchong Cho, Hyunseok Choi, Euisin Lee',venue:'IEEE ICC'},
+    {id:24,y:2021,type:'journal',fa:true,ca:false,title:'Adaptive Content Precaching Scheme Based on the Predictive Speed of Vehicles in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Access'},
+    {id:25,y:2021,type:'journal',fa:false,ca:false,title:'Video Packet Distribution Scheme for Multimedia Streaming Services in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'IEEE Access'},
+    {id:26,y:2020,type:'journal',fa:false,ca:false,title:'Data delivery protocol using the trajectory information on a road map in VANETs',authors:'Yongje Shin, Hyun-Seok Choi, Youngju Nam, Euisin Lee',venue:'IEEE Access'},
+    {id:27,y:2020,type:'conf',fa:false,ca:false,title:'Cooperative Content Downloading Protocol Based on the Mobility Information of Vehicles in Intermittently Connected Vehicular Networks',authors:'Jaejeong Bang, Youngju Nam, Hyun-Seok Choi, Sungjin Park, Euisin Lee',venue:'ACM MobiHoc'},
+    {id:28,y:2019,type:'conf',fa:false,ca:false,title:'RSU-driven Cloud Construction and Management Mechanism in VANETs',authors:'Yoonhyeong Lee, Hyun-Seok Choi, Youngju Nam, Sungjin Park, Euisin Lee',venue:'IEEE NOMS'},
+    {id:29,y:2019,type:'conf',fa:false,ca:false,title:'Efficient Multipath Routing Protocol Against Path Failures in Wireless Sensor Networks',authors:'Jinhyuk Yim, Jaejeong Bang, Youngju Nam, Yongje Shin, Euisin Lee',venue:'IEEE ICC'},
+    {id:30,y:2019,type:'conf',fa:false,ca:false,title:'Mobility-aware Distributed Proactive Caching in Content-Centric Vehicular Networks',authors:'Sungjin Park, Seungmin Oh, Youngju Nam, Jaejeong Bang, Euisin Lee',venue:'IEEE INFOCOM'},
+    {id:31,y:2018,type:'conf',fa:false,ca:false,title:'Efficient Data Delivery Protocol Using Vehicle Mobility Information in VANETs',authors:'Yongje Shin, Hyun-Seok Choi, Youngju Nam, Euisin Lee',venue:'ACM CoNEXT'},
+    {id:32,y:2018,type:'conf',fa:false,ca:false,title:'Multi-hop Vehicular Cloud Construction with Connection Time based Resource Allocation in VANETs',authors:'Hyun-Seok Choi, Youngju Nam, Jaejeong Bang, Yongje Shin, Euisin Lee',venue:'IEEE Globecom'}
+  ]
+};
+
+// ════════════════════════════════
+//  STATE
+// ════════════════════════════════
+let curFilter = 'all';
+const D = DEFAULT;
+
+// ════════════════════════════════
+//  NAV
+// ════════════════════════════════
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map = {home:'Home',about:'소개',career:'경력',research:'연구',pubs:'논문',contact:'연락처'};
+  [...document.querySelectorAll('.nav-btn')].find(b => b.textContent === map[id])?.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ════════════════════════════════
+//  RENDER ALL
+// ════════════════════════════════
+function renderAll() {
+  renderHome(); renderAbout(); renderCareer(); renderResearch(); renderPapers(); renderContact();
+}
+
+function renderHome() {
+  const h = D.home;
+  document.getElementById('h-name').textContent = h.name;
+  document.getElementById('h-name-en').textContent = h.nameEn;
+  document.getElementById('h-pos').innerHTML = h.pos;
+  document.getElementById('h-desc').textContent = h.desc;
+  document.getElementById('h-keywords').innerHTML = h.keywords.split(',').map(k => `<span class="rtag">${k.trim()}</span>`).join('');
+}
+
+function renderAbout() {
+  const bio = D.about.bio;
+  document.getElementById('aboutBioEl').innerHTML = bio.map((p,i) => `<p class="${i===0?'hl':''}">${p}</p>`).join('');
+  document.getElementById('aboutInfoEl').innerHTML = D.contact.map((c,i) => `
+    <div class="icard">
+      <div class="icard-icon">${c.icon}</div>
+      <div>
+        <div class="icard-label">${c.label}</div>
+        <div class="icard-val">${c.link?`<a href="${c.link}">${c.value}</a>`:c.value}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderCareer() {
+  const container = document.getElementById('timelineEl');
+  container.innerHTML = D.career.map(item => `
+    <div class="tl-item" data-id="${item.id}">
+      <div class="tl-dot ${item.gold?'g':''}"></div>
+      <div class="tl-period ${item.gold?'gp':''}">${item.period}</div>
+      <div class="tl-title">
+        ${item.title}
+      </div>
+      <div class="tl-sub">${item.sub}</div>
+    </div>`).join('');
+}
+
+function renderResearch() {
+  document.getElementById('researchEl').innerHTML = D.research.map(c => `
+    <div class="rcard">
+      <div class="rc-ico">${c.icon}</div>
+      <div class="rc-title">${c.title}</div>
+      <div class="rc-tags">${c.tags.split(',').map(t=>`<span class="rc-tag">${t.trim()}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+function hlAuth(s) { return s.replace(/(Youngju Nam|Youngjoo Nam)/g,'<span class="me">$1</span>'); }
+
+function renderPapers() {
+  let list = D.papers;
+  if (curFilter==='journal') list = list.filter(p=>p.type==='journal');
+  else if (curFilter==='conf') list = list.filter(p=>p.type==='conf');
+  else if (curFilter==='first') list = list.filter(p=>p.fa);
+
+  document.getElementById('cnt-total').textContent = D.papers.length;
+  document.getElementById('cnt-j').textContent = D.papers.filter(p=>p.type==='journal').length;
+  document.getElementById('cnt-c').textContent = D.papers.filter(p=>p.type==='conf').length;
+  document.getElementById('cnt-fa').textContent = D.papers.filter(p=>p.fa||p.ca).length;
+
+  const years = [...new Set(list.map(p=>p.y))].sort((a,b)=>b-a);
+  document.getElementById('pub-list').innerHTML = years.map(y => {
+    const yp = list.filter(p=>p.y===y);
+    return `<div class="year-group"><div class="year-heading">${y}</div>${
+      yp.map(p => {
+        const cls = (p.fa&&p.ca)?'fa-ca':p.fa?'first-author':p.ca?'corr-author':'';
+        return `<div class="paper-item ${cls}">
+          <div class="paper-title">${p.title}</div>
+          <div class="paper-authors">${hlAuth(p.authors)}</div>
+          <div class="paper-venue">${p.venue}<span class="badge ${p.type==='journal'?'badge-j':'badge-c'}">${p.type==='journal'?'Journal':'Conference'}</span></div>
+        </div>`;
+      }).join('')
+    }</div>`;
+  }).join('');
+}
+
+function renderContact() {
+  document.getElementById('contactEl').innerHTML = D.contact.map(c => `
+    <div class="ci">
+      <div class="ci-ico">${c.icon}</div>
+      <div>
+        <div class="ci-lbl">${c.label}</div>
+        <div class="ci-val">${c.link?`<a href="${c.link}">${c.value}</a>`:c.value}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════
+//  FILTER
+// ════════════════════════════════
+function filterPapers(btn, f) {
+  document.querySelectorAll('.filt-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  curFilter = f;
+  renderPapers();
+}
+
+// ════════════════════════════════
+//  INIT
+// ════════════════════════════════
+renderAll();
+</script>
+</body>
+</html>
