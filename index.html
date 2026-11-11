@@ -414,7 +414,7 @@ function renderResearch() {
 
 function hlAuth(s) { return s.replace(/(Youngju Nam|Youngjoo Nam)/g,'<span class="me">$1</span>'); }
 
-const IDX_CLASS = {'SCIE':'badge-scie','KCI':'badge-kci','KCI 후보':'badge-kcic','국제학회':'badge-j','국내학회':'badge-j'};
+const IDX_CLASS = {'SCIE':'badge-scie','KCI':'badge-kci','KCI 후보':'badge-kcic','국제학회':'badge-c','국내학회':'badge-j'};
 function renderPapers() {
   let list = D.papers;
   if (curFilter==='journal') list = list.filter(p=>p.type==='journal');
