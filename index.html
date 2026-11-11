@@ -105,6 +105,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .badge{display:inline-block;border-radius:4px;padding:.1rem .5rem;font-size:.7rem;font-weight:700;margin-left:.4rem;}
 .badge-j{background:rgba(79,156,249,.12);color:var(--accent);}
 .badge-c{background:rgba(240,192,96,.12);color:var(--gold);}
+.badge-scie{background:rgba(79,156,249,.18);color:var(--accent);border:1px solid rgba(79,156,249,.45);}
+.badge-kci{background:rgba(72,187,120,.14);color:#48bb78;}
+.badge-kcic{background:transparent;color:#9aa4b2;border:1px solid rgba(154,164,178,.45);}
 .pub-stats{display:flex;gap:1.2rem;margin-bottom:1.8rem;flex-wrap:wrap;}
 .stat-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.5rem;text-align:center;}
 .stat-num{font-size:1.6rem;font-weight:900;color:var(--accent);}
@@ -293,50 +296,50 @@ const DEFAULT = {
   ],
   
   papers: [
-    {id:1,y:2026,type:'journal',fa:true,ca:false,title:'Precaching vehicle selection based on soft actor-critic in CIoV',authors:'Youngju Nam, Yongje Shin, Hyunseok Choi, Euisin Lee',venue:'AIMS Mathematics'},
-    {id:2,y:2026,type:'journal',fa:true,ca:false,title:'Uncertainty-Aware Precaching Scheme based on ST-CVAE in Content-Centric Internet of Vehicles',authors:'Youngju Nam, Euisin Lee, Jeong-Hun Kim',venue:'IEEE Internet of Things Journal'},
-    {id:3,y:2026,type:'journal',fa:true,ca:false,title:'Rotary Positional Embedding-based Cross-Attention for Unsupervised Action Segmentation in Ultra-Long Traffic Videos',authors:'Youngju Nam, Chanmin Yoo, Jeong-Hun Kim',venue:'Journal of Big Data Service'},
-    {id:44,y:2026,type:'journal',fa:true,ca:false,title:'LSOM-based Snapshot Edge Precaching Framework for CIoV',authors:'Youngju Nam, Jeong-Hun Kim',venue:'The Transactions of the Korea Information Processing Society'},
-    {id:4,y:2026,type:'journal',fa:false,ca:false,title:'Dynamic Relay Assignment Scheme for Efficient V2V Content Precaching in Content-Centric Internet of Vehicles',authors:'Jongpil Youn, Youngju Nam, Euisin Lee',venue:'Electronics'},
-    {id:5,y:2026,type:'journal',fa:false,ca:false,title:'PSO-Based Dynamic RSU Role Assignment Framework for Scalable and Reliable Content Delivery in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'Sensors'},
-    {id:6,y:2026,type:'conf',fa:false,ca:false,title:'Delay Tolerant Precaching Scheme Based on Proximal Policy Optimization in Content-Centric Vehicular Networks',authors:'Jeongtak Na, Jongpil Youn, Irina Em, Euisin Lee, Youngju Nam',venue:'ICAIIC'},
-    {id:42,y:2026,type:'journal',fa:false,ca:false,title:'Implementation of an eVTOL Mobility Model Simulator and Collision Avoidance Performance Analysis',authors:'Hyeonsu Gil, Youngju Nam',venue:'The Journal of Korean Institute of Information Technology'},
-    {id:43,y:2026,type:'journal',fa:false,ca:false,title:'A Study on LLM-based Game NPC State Control using FSM',authors:'Yunseong Na, Youngju Nam',venue:'The Journal of Korean Institute of Information Technology'},
-    {id:7,y:2025,type:'journal',fa:true,ca:false,title:'Content Storage Management and Precaching Scheme in Content-Centric-Network-Based Internet of Vehicles',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Internet of Things Journal'},
-    {id:8,y:2025,type:'journal',fa:false,ca:false,title:'Particle Swarm Optimization-Based Content Delivery Protocol for UAV VAENTs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'IEEE Access'},
-    {id:9,y:2024,type:'journal',fa:false,ca:false,title:'Mobility-Based Multi-Hop Content Precaching Scheme in Content-Centric Vehicular Networks',authors:'Hyunseok Choi, Youngju Nam, Gayeong Kim, Euisin Lee',venue:'Electronics'},
-    {id:10,y:2024,type:'journal',fa:false,ca:false,title:'Adaptive Mobility-Based IoT LoRa Clustering Communication Scheme',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Electronics'},
-    {id:11,y:2024,type:'journal',fa:false,ca:true,title:'Resource Cluster-Based Resource Search and Allocation Scheme for Vehicular Clouds in Vehicular Ad Hoc Networks',authors:'Hyunseok Choi, Yoonhyeong Lee, Gayeong Kim, Euisin Lee, Youngju Nam',venue:'Sensors'},
-    {id:12,y:2024,type:'conf',fa:false,ca:false,title:'Relaying Vehicle Selection Algorithm at the Best Selection Region in Content-Centric Vehicular Networks',authors:'Gayeong Kim, Jongpil Youn, Youngju Nam, Euisin Lee',venue:'ICCCM'},
-    {id:13,y:2023,type:'journal',fa:true,ca:false,title:'Multiple Precaching Vehicle Selection Scheme Based on Set Ranking in Intermittently Connected Vehicular Networks',authors:'Youngju Nam, Jaejeong Bang, Hyunseok Choi, Yongje Shin, Seungmin Oh, Euisin Lee',venue:'Sensors'},
-    {id:14,y:2023,type:'journal',fa:true,ca:false,title:'Traffic Optimized Content Precaching Scheme Based on Tolerable Delay Time in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'IEEE Access'},
-    {id:15,y:2023,type:'journal',fa:false,ca:false,title:'Implicit Overhearing Node-Based Multi-Hop Communication Scheme in IoT LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Sensors'},
-    {id:16,y:2023,type:'conf',fa:true,ca:false,title:'Delay Tolerable Precaching Scheme in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Dick Mugerwa, Euisin Lee',venue:'IEEE CCNC'},
-    {id:17,y:2023,type:'conf',fa:true,ca:false,title:'Set Ranking-Based Precaching Protocol in Vehicular Ad hoc Networks',authors:'Youngju Nam, Hyunseok Choi, Jaejeong Bang, Yongje Shin, Euisin Lee',venue:'IEEE CCNC'},
-    {id:18,y:2023,type:'conf',fa:false,ca:false,title:'Enhanced Hybrid Energy-Efficient Distributed Clustering Protocol for IoT-Based WSNs with Multiple Sinks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Youngmi Kwon, Euisin Lee',venue:'IEEE SAS'},
-    {id:19,y:2023,type:'conf',fa:false,ca:false,title:'Multi-hop Precaching scheme with Relaying in Intermittently Connected Vehicular Networks',authors:'Gayeong Kim, Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'SmartNets'},
-    {id:20,y:2022,type:'journal',fa:true,ca:false,title:'Cooperative Content Precaching Scheme Based on the Mobility Information of Vehicles in Intermittently Connected Vehicular Networks',authors:'Youngju Nam, Jaejeong Bang, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Electronics'},
-    {id:21,y:2022,type:'journal',fa:true,ca:false,title:'Expected Area-Based Real-Time Routing Protocol for Supporting Mobile Sinks in Wireless Sensor Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Soochang Park, Euisin Lee',venue:'Electronics'},
-    {id:22,y:2022,type:'journal',fa:true,ca:false,title:'RSU-Aided Optimal Member Replacement Scheme with Improved Mobility Prediction for Vehicular Clouds in VANETs',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Dick Mugerwa, Euisin Lee',venue:'Electronics'},
-    {id:23,y:2022,type:'journal',fa:false,ca:false,title:'SF-Partition-Based Clustering and Relaying Scheme for Resolving Near–Far Unfairness in IoT Multihop LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Sensors'},
-    {id:24,y:2022,type:'journal',fa:false,ca:false,title:'The partial cloud member replacement for reconstructing vehicular clouds in VANETs: Reactive and proactive schemes',authors:'Hyunseok Choi, Youngju Nam, Yongje Shin, Euisin Lee',venue:'Ad Hoc Networks'},
-    {id:25,y:2022,type:'journal',fa:false,ca:false,title:'Particle Swarm Optimization Video Streaming Service in Vehicular Ad-Hoc Networks',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Hyunchong Cho, Euisin Lee',venue:'IEEE Access'},
-    {id:26,y:2022,type:'journal',fa:false,ca:false,title:'Design and Evaluation of Schemes for Replacing Multiple Member Vehicles in Vehicular Clouds',authors:'Hyunseok Choi, Youngju Nam, Yongje Shin, Kwansoo Jung, Euisin Lee',venue:'Electronics'},
-    {id:27,y:2022,type:'journal',fa:false,ca:false,title:'Relaying Vehicle Selection and Content Precaching Scheme using Mobility Information of Vehicles',authors:'Hyunchong Cho, Youngju Nam, Gayeong Kim, Jun-Won Lee, Youjin Ko, Euisin Lee',venue:'The Journal of the Korea Contents Association'},
-    {id:28,y:2022,type:'conf',fa:false,ca:false,title:'Implicit Multi-hop Communication Scheme based on Overhearing in IoT LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunchong Cho, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'ICUFN'},
-    {id:29,y:2022,type:'conf',fa:false,ca:false,title:'Cooperative Content Precaching and Relaying Scheme based on the Mobility Information of Vehicles in Vehicular Networks',authors:'Jun-Won Lee, You-Jin Ko, Gayeong Kim, Youngju Nam, Euisin Lee',venue:'KIPS Annual Conference'},
-    {id:30,y:2021,type:'journal',fa:true,ca:false,title:'Adaptive Content Precaching Scheme Based on the Predictive Speed of Vehicles in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee, Eun-Kyu Lee',venue:'Sensors'},
-    {id:31,y:2021,type:'journal',fa:false,ca:false,title:'Video Packet Distribution Scheme for Multimedia Streaming Services in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'Sensors'},
-    {id:32,y:2021,type:'conf',fa:false,ca:false,title:'An implicit Multi-hop Communication scheme based on Overhearing in IoT LoRa Networks',authors:'Dick Mugerwa, Hyunseok Choi, Youngju Nam, Yongje Shin, Euisin Lee',venue:'KICS Winter Conference'},
-    {id:33,y:2020,type:'journal',fa:false,ca:false,title:'Data delivery protocol using the trajectory information on a road map in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'Ad Hoc Networks'},
-    {id:34,y:2020,type:'conf',fa:false,ca:false,title:'Cooperative Content Downloading Protocol Based on the Mobility Information of Vehicles in Intermittently Connected Vehicular Networks',authors:'Jaejeong Bang, Youngju Nam, Hyunseok Choi, Euisin Lee, Seungmin Oh',venue:'ICOIN'},
-    {id:35,y:2019,type:'journal',fa:false,ca:false,title:'Multi-Hop Vehicular Cloud Construction and Resource Allocation in VANETs',authors:'Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'KIPS Transactions on Computer and Communication Systems'},
-    {id:36,y:2019,type:'conf',fa:false,ca:false,title:'RSU-driven Cloud Construction and Management Mechanism in VANETs',authors:'Yoonhyeong Lee, Hyunseok Choi, Youngju Nam, Sungjin Park, Euisin Lee',venue:'IEEE CloudNet'},
-    {id:37,y:2019,type:'conf',fa:false,ca:false,title:'Efficient Multipath Routing Protocol Against Path Failures in Wireless Sensor Networks',authors:'Jinhyuk Yim, Jaejeong Bang, Youngju Nam, Yongje Shin, Euisin Lee',venue:'IFIP WMNC'},
-    {id:38,y:2019,type:'conf',fa:false,ca:false,title:'Mobility-aware Distributed Proactive Caching in Content-Centric Vehicular Networks',authors:'Sungjin Park, Seungmin Oh, Youngju Nam, Jaejeong Bang, Euisin Lee',venue:'IFIP WMNC'},
-    {id:39,y:2018,type:'conf',fa:false,ca:false,title:'Multi-hop Vehicular Cloud Construction with Connection Time based Resource Allocation in VANETs',authors:'Hyunseok Choi, Youngju Nam, Jaejeong Bang, Euisin Lee',venue:'APCC'},
-    {id:40,y:2018,type:'conf',fa:false,ca:false,title:'Efficient Data Delivery Protocol Using Vehicle Mobility Information in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'ICUFN'},
-    {id:41,y:2016,type:'journal',fa:true,ca:false,title:'Input System Implementation for Virtual Reality Headset Using Electro-oculogram(EOG)',authors:'Youngju Nam, Ki-Chul Kwon, Byeongjun Kim, Euisin Lee, Nam Kim',venue:'The Journal of the Korea Contents Association'}
+    {id:1,y:2026,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Precaching vehicle selection based on soft actor-critic in CIoV',authors:'Youngju Nam, Yongje Shin, Hyunseok Choi, Euisin Lee',venue:'AIMS Mathematics'},
+    {id:2,y:2026,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Uncertainty-Aware Precaching Scheme based on ST-CVAE in Content-Centric Internet of Vehicles',authors:'Youngju Nam, Euisin Lee, Jeong-Hun Kim',venue:'IEEE Internet of Things Journal'},
+    {id:3,y:2026,type:'journal',fa:true,ca:false,idx:'KCI 후보',title:'Rotary Positional Embedding-based Cross-Attention for Unsupervised Action Segmentation in Ultra-Long Traffic Videos',authors:'Youngju Nam, Chanmin Yoo, Jeong-Hun Kim',venue:'Journal of Big Data Service'},
+    {id:44,y:2026,type:'journal',fa:true,ca:false,idx:'KCI',title:'LSOM-based Snapshot Edge Precaching Framework for CIoV',authors:'Youngju Nam, Jeong-Hun Kim',venue:'The Transactions of the Korea Information Processing Society'},
+    {id:4,y:2026,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Dynamic Relay Assignment Scheme for Efficient V2V Content Precaching in Content-Centric Internet of Vehicles',authors:'Jongpil Youn, Youngju Nam, Euisin Lee',venue:'Electronics'},
+    {id:5,y:2026,type:'journal',fa:false,ca:false,idx:'SCIE',title:'PSO-Based Dynamic RSU Role Assignment Framework for Scalable and Reliable Content Delivery in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'Sensors'},
+    {id:6,y:2026,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Delay Tolerant Precaching Scheme Based on Proximal Policy Optimization in Content-Centric Vehicular Networks',authors:'Jeongtak Na, Jongpil Youn, Irina Em, Euisin Lee, Youngju Nam',venue:'ICAIIC'},
+    {id:42,y:2026,type:'journal',fa:false,ca:false,idx:'KCI',title:'Implementation of an eVTOL Mobility Model Simulator and Collision Avoidance Performance Analysis',authors:'Hyeonsu Gil, Youngju Nam',venue:'The Journal of Korean Institute of Information Technology'},
+    {id:43,y:2026,type:'journal',fa:false,ca:false,idx:'KCI',title:'A Study on LLM-based Game NPC State Control using FSM',authors:'Yunseong Na, Youngju Nam',venue:'The Journal of Korean Institute of Information Technology'},
+    {id:7,y:2025,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Content Storage Management and Precaching Scheme in Content-Centric-Network-Based Internet of Vehicles',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Internet of Things Journal'},
+    {id:8,y:2025,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Particle Swarm Optimization-Based Content Delivery Protocol for UAV VAENTs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'IEEE Access'},
+    {id:9,y:2024,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Mobility-Based Multi-Hop Content Precaching Scheme in Content-Centric Vehicular Networks',authors:'Hyunseok Choi, Youngju Nam, Gayeong Kim, Euisin Lee',venue:'Electronics'},
+    {id:10,y:2024,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Adaptive Mobility-Based IoT LoRa Clustering Communication Scheme',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Electronics'},
+    {id:11,y:2024,type:'journal',fa:false,ca:true,idx:'SCIE',title:'Resource Cluster-Based Resource Search and Allocation Scheme for Vehicular Clouds in Vehicular Ad Hoc Networks',authors:'Hyunseok Choi, Yoonhyeong Lee, Gayeong Kim, Euisin Lee, Youngju Nam',venue:'Sensors'},
+    {id:12,y:2024,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Relaying Vehicle Selection Algorithm at the Best Selection Region in Content-Centric Vehicular Networks',authors:'Gayeong Kim, Jongpil Youn, Youngju Nam, Euisin Lee',venue:'ICCCM'},
+    {id:13,y:2023,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Multiple Precaching Vehicle Selection Scheme Based on Set Ranking in Intermittently Connected Vehicular Networks',authors:'Youngju Nam, Jaejeong Bang, Hyunseok Choi, Yongje Shin, Seungmin Oh, Euisin Lee',venue:'Sensors'},
+    {id:14,y:2023,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Traffic Optimized Content Precaching Scheme Based on Tolerable Delay Time in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'IEEE Access'},
+    {id:15,y:2023,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Implicit Overhearing Node-Based Multi-Hop Communication Scheme in IoT LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Sensors'},
+    {id:16,y:2023,type:'conf',fa:true,ca:false,idx:'국제학회',title:'Delay Tolerable Precaching Scheme in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Dick Mugerwa, Euisin Lee',venue:'IEEE CCNC'},
+    {id:17,y:2023,type:'conf',fa:true,ca:false,idx:'국제학회',title:'Set Ranking-Based Precaching Protocol in Vehicular Ad hoc Networks',authors:'Youngju Nam, Hyunseok Choi, Jaejeong Bang, Yongje Shin, Euisin Lee',venue:'IEEE CCNC'},
+    {id:18,y:2023,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Enhanced Hybrid Energy-Efficient Distributed Clustering Protocol for IoT-Based WSNs with Multiple Sinks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Youngmi Kwon, Euisin Lee',venue:'IEEE SAS'},
+    {id:19,y:2023,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Multi-hop Precaching scheme with Relaying in Intermittently Connected Vehicular Networks',authors:'Gayeong Kim, Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'SmartNets'},
+    {id:20,y:2022,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Cooperative Content Precaching Scheme Based on the Mobility Information of Vehicles in Intermittently Connected Vehicular Networks',authors:'Youngju Nam, Jaejeong Bang, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Electronics'},
+    {id:21,y:2022,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Expected Area-Based Real-Time Routing Protocol for Supporting Mobile Sinks in Wireless Sensor Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Soochang Park, Euisin Lee',venue:'Electronics'},
+    {id:22,y:2022,type:'journal',fa:true,ca:false,idx:'SCIE',title:'RSU-Aided Optimal Member Replacement Scheme with Improved Mobility Prediction for Vehicular Clouds in VANETs',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Dick Mugerwa, Euisin Lee',venue:'Electronics'},
+    {id:23,y:2022,type:'journal',fa:false,ca:false,idx:'SCIE',title:'SF-Partition-Based Clustering and Relaying Scheme for Resolving Near–Far Unfairness in IoT Multihop LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Sensors'},
+    {id:24,y:2022,type:'journal',fa:false,ca:false,idx:'SCIE',title:'The partial cloud member replacement for reconstructing vehicular clouds in VANETs: Reactive and proactive schemes',authors:'Hyunseok Choi, Youngju Nam, Yongje Shin, Euisin Lee',venue:'Ad Hoc Networks'},
+    {id:25,y:2022,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Particle Swarm Optimization Video Streaming Service in Vehicular Ad-Hoc Networks',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Hyunchong Cho, Euisin Lee',venue:'IEEE Access'},
+    {id:26,y:2022,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Design and Evaluation of Schemes for Replacing Multiple Member Vehicles in Vehicular Clouds',authors:'Hyunseok Choi, Youngju Nam, Yongje Shin, Kwansoo Jung, Euisin Lee',venue:'Electronics'},
+    {id:27,y:2022,type:'journal',fa:false,ca:false,idx:'KCI',title:'Relaying Vehicle Selection and Content Precaching Scheme using Mobility Information of Vehicles',authors:'Hyunchong Cho, Youngju Nam, Gayeong Kim, Jun-Won Lee, Youjin Ko, Euisin Lee',venue:'The Journal of the Korea Contents Association'},
+    {id:28,y:2022,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Implicit Multi-hop Communication Scheme based on Overhearing in IoT LoRa Networks',authors:'Dick Mugerwa, Youngju Nam, Hyunchong Cho, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'ICUFN'},
+    {id:29,y:2022,type:'conf',fa:false,ca:false,idx:'국내학회',title:'Cooperative Content Precaching and Relaying Scheme based on the Mobility Information of Vehicles in Vehicular Networks',authors:'Jun-Won Lee, You-Jin Ko, Gayeong Kim, Youngju Nam, Euisin Lee',venue:'KIPS Annual Conference'},
+    {id:30,y:2021,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Adaptive Content Precaching Scheme Based on the Predictive Speed of Vehicles in Content-Centric Vehicular Networks',authors:'Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee, Eun-Kyu Lee',venue:'Sensors'},
+    {id:31,y:2021,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Video Packet Distribution Scheme for Multimedia Streaming Services in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'Sensors'},
+    {id:32,y:2021,type:'conf',fa:false,ca:false,idx:'국내학회',title:'An implicit Multi-hop Communication scheme based on Overhearing in IoT LoRa Networks',authors:'Dick Mugerwa, Hyunseok Choi, Youngju Nam, Yongje Shin, Euisin Lee',venue:'KICS Winter Conference'},
+    {id:33,y:2020,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Data delivery protocol using the trajectory information on a road map in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'Ad Hoc Networks'},
+    {id:34,y:2020,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Cooperative Content Downloading Protocol Based on the Mobility Information of Vehicles in Intermittently Connected Vehicular Networks',authors:'Jaejeong Bang, Youngju Nam, Hyunseok Choi, Euisin Lee, Seungmin Oh',venue:'ICOIN'},
+    {id:35,y:2019,type:'journal',fa:false,ca:false,idx:'KCI',title:'Multi-Hop Vehicular Cloud Construction and Resource Allocation in VANETs',authors:'Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'KIPS Transactions on Computer and Communication Systems'},
+    {id:36,y:2019,type:'conf',fa:false,ca:false,idx:'국제학회',title:'RSU-driven Cloud Construction and Management Mechanism in VANETs',authors:'Yoonhyeong Lee, Hyunseok Choi, Youngju Nam, Sungjin Park, Euisin Lee',venue:'IEEE CloudNet'},
+    {id:37,y:2019,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Efficient Multipath Routing Protocol Against Path Failures in Wireless Sensor Networks',authors:'Jinhyuk Yim, Jaejeong Bang, Youngju Nam, Yongje Shin, Euisin Lee',venue:'IFIP WMNC'},
+    {id:38,y:2019,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Mobility-aware Distributed Proactive Caching in Content-Centric Vehicular Networks',authors:'Sungjin Park, Seungmin Oh, Youngju Nam, Jaejeong Bang, Euisin Lee',venue:'IFIP WMNC'},
+    {id:39,y:2018,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Multi-hop Vehicular Cloud Construction with Connection Time based Resource Allocation in VANETs',authors:'Hyunseok Choi, Youngju Nam, Jaejeong Bang, Euisin Lee',venue:'APCC'},
+    {id:40,y:2018,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Efficient Data Delivery Protocol Using Vehicle Mobility Information in VANETs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'ICUFN'},
+    {id:41,y:2016,type:'journal',fa:true,ca:false,idx:'KCI',title:'Input System Implementation for Virtual Reality Headset Using Electro-oculogram(EOG)',authors:'Youngju Nam, Ki-Chul Kwon, Byeongjun Kim, Euisin Lee, Nam Kim',venue:'The Journal of the Korea Contents Association'}
   ]
 };
 
@@ -411,6 +414,7 @@ function renderResearch() {
 
 function hlAuth(s) { return s.replace(/(Youngju Nam|Youngjoo Nam)/g,'<span class="me">$1</span>'); }
 
+const IDX_CLASS = {'SCIE':'badge-scie','KCI':'badge-kci','KCI 후보':'badge-kcic','국제학회':'badge-c','국내학회':'badge-c'};
 function renderPapers() {
   let list = D.papers;
   if (curFilter==='journal') list = list.filter(p=>p.type==='journal');
@@ -431,7 +435,7 @@ function renderPapers() {
         return `<div class="paper-item ${cls}">
           <div class="paper-title">${p.title}</div>
           <div class="paper-authors">${hlAuth(p.authors)}</div>
-          <div class="paper-venue">${p.venue}<span class="badge ${p.type==='journal'?'badge-j':'badge-c'}">${p.type==='journal'?'Journal':'Conference'}</span></div>
+          <div class="paper-venue">${p.venue}<span class="badge ${IDX_CLASS[p.idx]||'badge-c'}">${p.idx}</span></div>
         </div>`;
       }).join('')
     }</div>`;
