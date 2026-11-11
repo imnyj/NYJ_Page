@@ -105,7 +105,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .badge{display:inline-block;border-radius:4px;padding:.1rem .5rem;font-size:.7rem;font-weight:700;margin-left:.4rem;}
 .badge-j{background:rgba(79,156,249,.12);color:var(--accent);}
 .badge-c{background:rgba(240,192,96,.12);color:var(--gold);}
-.badge-scie{background:rgba(79,156,249,.18);color:var(--accent);border:1px solid rgba(79,156,249,.45);}
+.badge-scie{background:#e5484d;color:#fff;box-shadow:0 0 8px rgba(229,72,77,.55);}
 .badge-kci{background:rgba(72,187,120,.14);color:#48bb78;}
 .badge-kcic{background:transparent;color:#9aa4b2;border:1px solid rgba(154,164,178,.45);}
 .pub-stats{display:flex;gap:1.2rem;margin-bottom:1.8rem;flex-wrap:wrap;}
@@ -414,7 +414,7 @@ function renderResearch() {
 
 function hlAuth(s) { return s.replace(/(Youngju Nam|Youngjoo Nam)/g,'<span class="me">$1</span>'); }
 
-const IDX_CLASS = {'SCIE':'badge-scie','KCI':'badge-kci','KCI 후보':'badge-kcic','국제학회':'badge-c','국내학회':'badge-c'};
+const IDX_CLASS = {'SCIE':'badge-scie','KCI':'badge-kci','KCI 후보':'badge-kcic','국제학회':'badge-j','국내학회':'badge-j'};
 function renderPapers() {
   let list = D.papers;
   if (curFilter==='journal') list = list.filter(p=>p.type==='journal');
