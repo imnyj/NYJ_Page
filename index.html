@@ -102,6 +102,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .paper-authors{font-size:.8rem;color:var(--muted);margin-bottom:.25rem;}
 .paper-authors .me{color:var(--accent2);font-weight:600;}
 .paper-venue{font-size:.78rem;color:var(--accent);font-weight:500;}
+.paper-doi{color:inherit;text-decoration:underline;}
 .badge{display:inline-block;border-radius:4px;padding:.1rem .5rem;font-size:.7rem;font-weight:700;margin-left:.4rem;}
 .badge-j{background:rgba(79,156,249,.12);color:var(--accent);}
 .badge-c{background:rgba(240,192,96,.12);color:var(--gold);}
@@ -297,7 +298,7 @@ const DEFAULT = {
   
   papers: [
     {id:1,y:2026,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Precaching vehicle selection based on soft actor-critic in CIoV',authors:'Youngju Nam, Yongje Shin, Hyunseok Choi, Euisin Lee',venue:'AIMS Mathematics'},
-    {id:2,y:2026,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Uncertainty-Aware Precaching Scheme based on ST-CVAE in Content-Centric Internet of Vehicles',authors:'Youngju Nam, Euisin Lee, Jeong-Hun Kim',venue:'IEEE Internet of Things Journal'},
+    {id:2,y:2026,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Uncertainty-Aware Precaching Scheme Based on ST-CVAE in Content-Centric Internet of Vehicles',authors:'Youngju Nam, Euisin Lee, Jeong-Hun Kim',venue:'IEEE Internet of Things Journal',pub:'vol. 13, no. 22, pp. 55206–55221, Nov. 2026',doi:'10.1109/JIOT.2026.3732321'},
     {id:3,y:2026,type:'journal',fa:true,ca:false,idx:'KCI 후보',title:'Rotary Positional Embedding-based Cross-Attention for Unsupervised Action Segmentation in Ultra-Long Traffic Videos',authors:'Youngju Nam, Chanmin Yoo, Jeong-Hun Kim',venue:'Journal of Big Data Service'},
     {id:44,y:2026,type:'journal',fa:true,ca:false,idx:'KCI',title:'LSOM-based Snapshot Edge Precaching Framework for CIoV',authors:'Youngju Nam, Jeong-Hun Kim',venue:'The Transactions of the Korea Information Processing Society'},
     {id:4,y:2026,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Dynamic Relay Assignment Scheme for Efficient V2V Content Precaching in Content-Centric Internet of Vehicles',authors:'Jongpil Youn, Youngju Nam, Euisin Lee',venue:'Electronics'},
@@ -305,7 +306,7 @@ const DEFAULT = {
     {id:6,y:2026,type:'conf',fa:false,ca:false,idx:'국제학회',title:'Delay Tolerant Precaching Scheme Based on Proximal Policy Optimization in Content-Centric Vehicular Networks',authors:'Jeongtak Na, Jongpil Youn, Irina Em, Euisin Lee, Youngju Nam',venue:'ICAIIC'},
     {id:42,y:2026,type:'journal',fa:false,ca:true,idx:'KCI',title:'Implementation of an eVTOL Mobility Model Simulator and Collision Avoidance Performance Analysis',authors:'Hyeonsu Gil, Youngju Nam',venue:'The Journal of Korean Institute of Information Technology'},
     {id:43,y:2026,type:'journal',fa:false,ca:true,idx:'KCI',title:'A Study on LLM-based Game NPC State Control using FSM',authors:'Yunseong Na, Youngju Nam',venue:'The Journal of Korean Institute of Information Technology'},
-    {id:7,y:2025,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Content Storage Management and Precaching Scheme in Content-Centric-Network-Based Internet of Vehicles',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Internet of Things Journal'},
+    {id:7,y:2025,type:'journal',fa:true,ca:false,idx:'SCIE',title:'Content Storage Management and Precaching Scheme in Content-Centric-Network-Based Internet of Vehicles',authors:'Youngju Nam, Hyunseok Choi, Euisin Lee',venue:'IEEE Internet of Things Journal',pub:'vol. 12, no. 9, pp. 12927–12947, May 2025',doi:'10.1109/JIOT.2024.3522322'},
     {id:8,y:2025,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Particle Swarm Optimization-Based Content Delivery Protocol for UAV VAENTs',authors:'Yongje Shin, Hyunseok Choi, Youngju Nam, Euisin Lee',venue:'IEEE Access'},
     {id:9,y:2024,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Mobility-Based Multi-Hop Content Precaching Scheme in Content-Centric Vehicular Networks',authors:'Hyunseok Choi, Youngju Nam, Gayeong Kim, Euisin Lee',venue:'Electronics'},
     {id:10,y:2024,type:'journal',fa:false,ca:false,idx:'SCIE',title:'Adaptive Mobility-Based IoT LoRa Clustering Communication Scheme',authors:'Dick Mugerwa, Youngju Nam, Hyunseok Choi, Yongje Shin, Euisin Lee',venue:'Electronics'},
@@ -435,7 +436,7 @@ function renderPapers() {
         return `<div class="paper-item ${cls}">
           <div class="paper-title">${p.title}</div>
           <div class="paper-authors">${hlAuth(p.authors)}</div>
-          <div class="paper-venue">${p.venue}<span class="badge ${IDX_CLASS[p.idx]||'badge-c'}">${p.idx}</span></div>
+          <div class="paper-venue">${p.venue}${p.pub?`, ${p.pub}`:''}${p.doi?` · <a class="paper-doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">DOI</a>`:''}<span class="badge ${IDX_CLASS[p.idx]||'badge-c'}">${p.idx}</span></div>
         </div>`;
       }).join('')
     }</div>`;
